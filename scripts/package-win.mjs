@@ -42,3 +42,15 @@ run(`"${csc}" /nologo /target:exe /optimize /out:"${path.join(out, 'RenataQuiz.e
   ` "${path.join(root, 'scripts', 'launcher.cs')}"`);
 
 console.log(`\nDone: ${out}\nDouble-click RenataQuiz.exe to start.`);
+
+const extDir = 'C:\\XR Interactive\\RenataQuiz';
+if (fs.existsSync(extDir) && path.resolve(extDir).toLowerCase() !== path.resolve(out).toLowerCase()) {
+  console.log(`\n> Syncing offline package to ${extDir}...`);
+  fs.rmSync(path.join(extDir, 'app'), { recursive: true, force: true });
+  fs.rmSync(path.join(extDir, 'runtime'), { recursive: true, force: true });
+  fs.mkdirSync(path.join(extDir, 'data'), { recursive: true });
+  copy(path.join(out, 'app'), path.join(extDir, 'app'));
+  copy(path.join(out, 'runtime'), path.join(extDir, 'runtime'));
+  fs.copyFileSync(path.join(out, 'RenataQuiz.exe'), path.join(extDir, 'RenataQuiz.exe'));
+  console.log(`> Successfully updated ${extDir}`);
+}

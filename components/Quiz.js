@@ -321,7 +321,7 @@ export default function Quiz() {
         </div>
 
         <div className="showcase">
-          <h3><span>Renata Oncology Bio equivalent Products</span></h3>
+          {/* <h3><span>Renata Oncology Bio equivalent Products</span></h3> */}
           <div className="marquee"><div className="track">{tiles}{tiles}{tiles}{tiles}</div></div>
         </div>
       </div>
