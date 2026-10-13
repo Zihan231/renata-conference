@@ -286,20 +286,21 @@ h1,.ri .qq,.ri .aa,.q,.opt span{overflow-wrap:anywhere}
 
 /* Portrait-first layout: scale the main panel to the viewport and use its full height. */
 @media (orientation:portrait){
-  .stage{min-height:100svh;min-height:100dvh;justify-content:center;gap:clamp(32px,7svh,96px);padding:calc(var(--safe-top) + 16px) 12px calc(var(--safe-bottom) + 16px)}
+  .stage{min-height:100svh;min-height:100dvh;justify-content:center;gap:clamp(24px,4svh,56px);padding:calc(var(--safe-top) + 12px) 12px calc(var(--safe-bottom) + 12px)}
   .quiz-panel{width:100%;flex:0 0 auto;gap:8px}
   .brand-row{width:100%}
   .brand-l img{height:clamp(68px,11svh,128px)}
   .brand-r img{height:clamp(28px,4.5svh,42px)}
   .brand-r{padding:clamp(7px,1.2svh,12px) clamp(10px,2.5vw,22px)}
-  .card{width:100%;padding:clamp(24px,5vw,52px);border-radius:clamp(24px,4vw,36px)}
-  h1{font-size:clamp(32px,6.6vw,56px)}
-  .sub{font-size:clamp(14px,2.5vw,17px);margin:10px 0 clamp(18px,2.8svh,34px)}
-  .field{margin-bottom:clamp(14px,2svh,22px)}
-  .field input{padding:26px 18px 12px 56px;font-size:clamp(17px,2.4vw,20px)}
-  .field label{left:56px;top:20px;font-size:clamp(15px,2vw,17px)}
-  .field svg{left:20px;top:21px;width:24px;height:24px}
-  .btn{padding:clamp(18px,2.5svh,24px) 22px;font-size:clamp(17px,2.4vw,20px)}
+  .card{width:100%;padding:clamp(28px,4.2vw,44px) clamp(24px,5vw,52px);border-radius:clamp(24px,4vw,36px)}
+  body:not(.result) .card{min-height:0;display:block}
+  h1{font-size:clamp(36px,7vw,64px)}
+  .sub{font-size:clamp(16px,3vw,20px);margin:16px 0 clamp(30px,4svh,52px)}
+  .field{margin-bottom:clamp(22px,3svh,42px)}
+  .field input{min-height:clamp(96px,9svh,128px);padding:34px 20px 18px 66px;font-size:clamp(20px,3vw,24px)}
+  .field label{left:66px;top:clamp(27px,3.5svh,44px);font-size:clamp(18px,2.5vw,21px)}
+  .field svg{left:22px;top:clamp(29px,3.5svh,44px);width:28px;height:28px}
+  .btn{min-height:clamp(100px,9svh,128px);padding:24px 22px;font-size:clamp(20px,2.8vw,24px)}
   .showcase{width:100%;margin-top:0}
   .showcase h3{font-size:clamp(10px,1.5vw,12px);letter-spacing:clamp(.12em,.28vw,.32em);gap:clamp(6px,1.5vw,14px)}
   .showcase h3::before,.showcase h3::after{width:clamp(20px,5.5vw,60px)}
@@ -313,10 +314,18 @@ h1,.ri .qq,.ri .aa,.q,.opt span{overflow-wrap:anywhere}
 @media (orientation:portrait) and (max-height:700px){
   .stage{gap:clamp(20px,4svh,32px);padding-top:calc(var(--safe-top) + 10px);padding-bottom:calc(var(--safe-bottom) + 10px)}
   .brand-l img{height:clamp(58px,9svh,76px)}
-  .card{padding:clamp(18px,4vw,28px)}
+  .card{padding:30px 20px}
   .sub{margin:8px 0 16px}
   .field input{padding-top:22px;padding-bottom:9px}
   .field label{top:18px}
   .field svg{top:18px}
   .marquee{padding:8px 0 12px}
+  body:not(.result) .card{min-height:0}
+  h1{font-size:clamp(32px,7vw,48px)}
+  .sub{margin:12px 0 28px}
+  .field{margin-bottom:22px}
+  .field input{min-height:88px;padding-top:26px;padding-bottom:12px}
+  .field label{top:28px}
+  .field svg{top:30px;width:24px;height:24px}
+  .btn{min-height:88px}
 }
