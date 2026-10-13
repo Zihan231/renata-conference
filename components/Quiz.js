@@ -214,7 +214,6 @@ export default function Quiz() {
       <FxLayer ref={fx} />
       <button className="snd" onClick={toggleMute} aria-label={muted ? 'Unmute sound' : 'Mute sound'} title={muted ? 'Sound off' : 'Sound on'}>{muted ? '🔇' : '🔊'}</button>
       <div className="stage">
-        <div className="quiz-panel">
         <Header />
 
         <div className={`card${shake ? ' shake' : ''}`} ref={cardRef}>
@@ -321,7 +320,6 @@ export default function Quiz() {
           )}
         </div>
 
-        </div>
         <div className="showcase">
           <h3><span>Renata Oncology Bio equivalent Products</span></h3>
           <div className="marquee"><div className="track">{tiles}{tiles}{tiles}{tiles}</div></div>
