@@ -220,7 +220,7 @@ export default function Quiz() {
           {/* 1: register */}
           {screen === 'reg' && (
             <section className={`screen active${out}`}>
-              <h1>Bioequivalence <span className="grad">Challenge</span></h1>
+              <h1>Hematocon <span className="grad">2026</span></h1>
               <p className="sub">Enter your details to begin. 3 questions. Are you ready?</p>
               <form onSubmit={submit} noValidate>
                 <div className={`field${err.field === 'name' ? ' err' : ''}`}>
