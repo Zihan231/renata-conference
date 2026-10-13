@@ -13,7 +13,7 @@ const BAD = ['Oops, not quite!', 'Almost there!', 'Not this one!'];
 const MSGS = ['Great effort! 🥳', 'Well done! 🎇', 'Perfect score!🌟'];
 const CIRC = 502;
 
-const makeOrder = (item) => shuffle(item.o.map((t, i) => ({ t, ok: i === item.a })));
+const makeOrder = (item) => item.o.map((t, i) => ({ t, ok: i === item.a }));
 const pick = (arr) => arr[(Math.random() * arr.length) | 0];
 
 export default function Quiz() {
