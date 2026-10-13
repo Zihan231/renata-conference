@@ -284,48 +284,538 @@ h1,.ri .qq,.ri .aa,.q,.opt span{overflow-wrap:anywhere}
 
 @media (max-width:520px){.showcase h3{letter-spacing:.16em;gap:10px;font-size:11px}.showcase h3::before,.showcase h3::after{width:26px}}
 
-/* Portrait-first layout: scale the main panel to the viewport and use its full height. */
-@media (orientation:portrait){
-  .stage{min-height:100svh;min-height:100dvh;justify-content:center;gap:clamp(24px,4svh,56px);padding:calc(var(--safe-top) + 12px) 12px calc(var(--safe-bottom) + 12px)}
-  .quiz-panel{width:100%;flex:0 0 auto;gap:8px}
-  .brand-row{width:100%}
-  .brand-l img{height:clamp(68px,11svh,128px)}
-  .brand-r img{height:clamp(28px,4.5svh,42px)}
-  .brand-r{padding:clamp(7px,1.2svh,12px) clamp(10px,2.5vw,22px)}
-  .card{width:100%;padding:clamp(28px,4.2vw,44px) clamp(24px,5vw,52px);border-radius:clamp(24px,4vw,36px)}
-  body:not(.result) .card{min-height:0;display:block}
-  h1{font-size:clamp(36px,7vw,64px)}
-  .sub{font-size:clamp(16px,3vw,20px);margin:16px 0 clamp(30px,4svh,52px)}
-  .field{margin-bottom:clamp(22px,3svh,42px)}
-  .field input{min-height:clamp(96px,9svh,128px);padding:34px 20px 18px 66px;font-size:clamp(20px,3vw,24px)}
-  .field label{left:66px;top:clamp(27px,3.5svh,44px);font-size:clamp(18px,2.5vw,21px)}
-  .field svg{left:22px;top:clamp(29px,3.5svh,44px);width:28px;height:28px}
-  .btn{min-height:clamp(100px,9svh,128px);padding:24px 22px;font-size:clamp(20px,2.8vw,24px)}
-  .showcase{width:100%;margin-top:0}
-  .showcase h3{font-size:clamp(10px,1.5vw,12px);letter-spacing:clamp(.12em,.28vw,.32em);gap:clamp(6px,1.5vw,14px)}
-  .showcase h3::before,.showcase h3::after{width:clamp(20px,5.5vw,60px)}
-  .marquee{padding:clamp(8px,1.8svh,26px) 0 clamp(12px,2svh,30px)}
-  .track{gap:clamp(16px,3vw,34px)}
-  .tile{width:clamp(180px,32vw,260px);height:clamp(112px,17svh,150px)}
-  body.playing .stage,body.result .stage{justify-content:center}
-  body.playing .stage{gap:0}
+/* ================= Portrait & 9:16 Screen System =================
+   Optimized specifically for 9:16 portrait ratio, large vertical kiosks (1080x1920, 1440x2560, 4K),
+   tablets, and mobile phones. Scales all content dynamically to eliminate empty space. */
+@media (orientation: portrait) {
+  .stage {
+    min-height: 100svh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(var(--safe-top) + clamp(12px, 2svh, 34px)) clamp(14px, 3.5vw, 44px) calc(var(--safe-bottom) + clamp(12px, 2svh, 34px));
+    gap: clamp(14px, 2.4svh, 42px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .quiz-panel {
+    width: min(100%, 960px);
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(12px, 2svh, 28px);
+    min-height: 0;
+  }
+
+  /* Brands Header */
+  .brand-row {
+    width: 100%;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: clamp(4px, 1svh, 16px);
+  }
+  .brand-l img {
+    height: clamp(68px, 9.5svh, 160px);
+    width: auto;
+  }
+  .brand-r {
+    padding: clamp(8px, 1.2svh, 18px) clamp(14px, 2.2vw, 32px);
+    border-radius: clamp(14px, 2vw, 24px);
+  }
+  .brand-r img {
+    height: clamp(28px, 3.8svh, 54px);
+    width: auto;
+  }
+
+  /* Main Card */
+  .card {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: clamp(520px, 60svh, 880px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(28px, 3.8svh, 64px) clamp(24px, 4.2vw, 56px);
+    border-radius: clamp(26px, 3.8vw, 48px);
+    margin: auto 0;
+  }
+
+  .screen.active {
+    width: 100%;
+    height: 100%;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Headings & Subtitles */
+  h1 {
+    font-size: clamp(34px, 4.4svh, 70px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: clamp(6px, 1svh, 14px);
+  }
+  .sub {
+    font-size: clamp(16px, 2svh, 25px);
+    line-height: 1.45;
+    margin: 0 0 clamp(20px, 3.2svh, 44px);
+  }
+
+  /* 1. Registration form */
+  .field {
+    position: relative;
+    margin-bottom: clamp(18px, 2.6svh, 38px);
+  }
+  .field input {
+    width: 100%;
+    min-height: clamp(84px, 9svh, 126px);
+    padding: clamp(30px, 3.2svh, 44px) clamp(20px, 2.2vw, 28px) clamp(10px, 1.2svh, 18px) clamp(62px, 7vw, 86px);
+    border-radius: clamp(18px, 2.2vw, 28px);
+    font-size: clamp(19px, 2.4svh, 30px);
+  }
+  .field label {
+    position: absolute;
+    left: clamp(62px, 7vw, 86px);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(17px, 2.1svh, 24px);
+    pointer-events: none;
+    transition: 0.25s cubic-bezier(0.2, 1, 0.3, 1);
+    transform-origin: left;
+  }
+  .field input:focus + label,
+  .field input:not(:placeholder-shown) + label {
+    transform: translateY(calc(-50% - clamp(16px, 2svh, 26px))) scale(0.72);
+    color: #6366f1;
+  }
+  .field svg {
+    position: absolute;
+    left: clamp(20px, 2.4vw, 28px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(26px, 3svh, 38px);
+    height: clamp(26px, 3svh, 38px);
+  }
+  .errmsg {
+    font-size: clamp(13px, 1.5svh, 18px);
+    min-height: clamp(18px, 2svh, 26px);
+    margin: clamp(-10px, -1svh, -4px) 0 clamp(8px, 1.2svh, 16px) 6px;
+  }
+  .btn {
+    min-height: clamp(82px, 8.8svh, 124px);
+    padding: clamp(18px, 2.2svh, 32px) clamp(24px, 3vw, 44px);
+    font-size: clamp(19px, 2.4svh, 30px);
+    border-radius: clamp(18px, 2.2vw, 28px);
+  }
+
+  /* 2. Greeting Screen */
+  .hello {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+  .avatar {
+    width: clamp(100px, 12.5svh, 180px);
+    height: clamp(100px, 12.5svh, 180px);
+    font-size: clamp(48px, 5.8svh, 86px);
+    margin: 0 auto clamp(14px, 1.8svh, 28px);
+  }
+  .chip-wrap {
+    margin-bottom: clamp(10px, 1.4svh, 22px);
+  }
+  .chip {
+    padding: clamp(8px, 1.1svh, 16px) clamp(18px, 2vw, 32px);
+    font-size: clamp(12px, 1.4svh, 18px);
+    gap: clamp(8px, 1vw, 14px);
+  }
+  .chip b {
+    width: clamp(8px, 1svh, 14px);
+    height: clamp(8px, 1svh, 14px);
+  }
+  .rules {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(10px, 1.6vw, 24px);
+    margin: clamp(18px, 2.5svh, 38px) 0 clamp(24px, 3.4svh, 48px);
+  }
+  .rules div {
+    padding: clamp(16px, 2.2svh, 32px) clamp(8px, 1.2vw, 16px);
+    border-radius: clamp(16px, 2vw, 24px);
+    font-size: clamp(12px, 1.5svh, 18px);
+  }
+  .rules b {
+    font-size: clamp(28px, 3.6svh, 52px);
+    margin-bottom: clamp(4px, 0.6svh, 10px);
+  }
+  .btn.big {
+    min-height: clamp(86px, 9svh, 130px);
+    font-size: clamp(20px, 2.6svh, 32px);
+  }
+
+  /* 3. Quiz Screen: Spacious & Engaging */
+  body.playing .stage {
+    justify-content: space-between;
+    gap: clamp(14px, 2svh, 32px);
+  }
+  body.playing .quiz-panel {
+    flex: 1 1 auto;
+    justify-content: center;
+    width: min(100%, 960px);
+  }
+  body.playing .card {
+    flex: 1 1 auto;
+    min-height: clamp(580px, 72svh, 1150px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(28px, 3.6svh, 60px) clamp(22px, 3.8vw, 54px);
+  }
+  body.playing .screen.active {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .top {
+    margin-bottom: clamp(14px, 2svh, 28px);
+    gap: clamp(14px, 2vw, 26px);
+    flex: 0 0 auto;
+  }
+  .steps {
+    gap: clamp(8px, 1.2vw, 16px);
+  }
+  .steps span {
+    height: clamp(10px, 1.3svh, 18px);
+    border-radius: 99px;
+  }
+  .qn {
+    font-size: clamp(15px, 1.9svh, 24px);
+    font-weight: 700;
+  }
+  .q {
+    font-size: clamp(24px, 2.9svh, 42px);
+    font-weight: 700;
+    line-height: 1.36;
+    margin: clamp(10px, 1.4svh, 24px) 0 clamp(20px, 2.6svh, 44px);
+    flex: 0 0 auto;
+  }
+  .opts {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 2svh, 30px);
+    flex: 1 0 auto;
+    justify-content: center;
+  }
+  .opt {
+    min-height: clamp(74px, 8.5svh, 126px);
+    padding: clamp(16px, 2svh, 28px) clamp(20px, 2.5vw, 36px);
+    border-radius: clamp(18px, 2.2vw, 30px);
+    border-width: 2px;
+    gap: clamp(16px, 2.2vw, 28px);
+  }
+  .opt i {
+    width: clamp(46px, 5.6svh, 76px);
+    height: clamp(46px, 5.6svh, 76px);
+    font-size: clamp(19px, 2.4svh, 32px);
+    border-radius: clamp(14px, 1.8vw, 22px);
+    flex: none;
+  }
+  .opt span {
+    font-size: clamp(18px, 2.4svh, 30px);
+    font-weight: 600;
+    line-height: 1.34;
+  }
+
+  /* 4. Result Screen: Stacked vertically, utilizing the height seamlessly */
+  body.result .stage {
+    justify-content: space-between;
+    gap: clamp(12px, 1.8svh, 28px);
+  }
+  body.result .quiz-panel {
+    flex: 1 1 auto;
+    width: min(100%, 960px);
+  }
+  body.result .card {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: clamp(600px, 76svh, 1250px);
+    padding: clamp(26px, 3.2svh, 52px) clamp(22px, 3.6vw, 48px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto 0;
+  }
+  body.result .screen.active {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  body.result .res {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: clamp(16px, 2.2svh, 32px);
+    align-items: center;
+    text-align: center;
+  }
+  body.result .rl {
+    display: contents;
+  }
+  body.result .trophy {
+    display: block !important;
+    order: 1;
+    font-size: clamp(68px, 8.6svh, 128px);
+    line-height: 1;
+    margin-bottom: clamp(4px, 0.6svh, 12px);
+  }
+  body.result h1 {
+    order: 2;
+    font-size: clamp(30px, 3.8svh, 56px);
+    margin-top: 0 !important;
+  }
+  body.result .sub {
+    order: 3;
+    font-size: clamp(16px, 2svh, 24px);
+    margin: clamp(6px, 0.8svh, 14px) 0 clamp(10px, 1.4svh, 20px);
+  }
+  body.result .score {
+    order: 4;
+    width: clamp(150px, 18svh, 240px);
+    height: clamp(150px, 18svh, 240px);
+    margin: clamp(6px, 1svh, 18px) auto;
+  }
+  body.result .score .n {
+    font-size: clamp(46px, 5.8svh, 80px);
+  }
+  body.result .score .n small {
+    font-size: clamp(20px, 2.4svh, 34px);
+  }
+  body.result .stars {
+    order: 5;
+    font-size: clamp(30px, 3.8svh, 54px);
+    letter-spacing: clamp(6px, 1vw, 16px);
+    margin: clamp(4px, 0.6svh, 12px) 0;
+  }
+  body.result .meta {
+    order: 6;
+    display: flex;
+    gap: clamp(8px, 1.2vw, 18px);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: clamp(8px, 1.2svh, 20px) 0 clamp(14px, 2svh, 28px);
+  }
+  body.result .meta div {
+    padding: clamp(10px, 1.3svh, 18px) clamp(16px, 2vw, 26px);
+    font-size: clamp(13px, 1.6svh, 20px);
+    border-radius: clamp(12px, 1.5vw, 20px);
+  }
+  body.result .review {
+    order: 7;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.4svh, 20px);
+    margin: 0 0 clamp(14px, 1.8svh, 28px);
+  }
+  body.result .review h4 {
+    display: block !important;
+    font-size: clamp(12px, 1.4svh, 18px);
+    letter-spacing: 0.2em;
+    text-align: center;
+    margin-bottom: clamp(4px, 0.5svh, 10px);
+  }
+  body.result .ri {
+    padding: clamp(14px, 1.8svh, 24px) clamp(16px, 2.2vw, 26px);
+    border-radius: clamp(16px, 2vw, 24px);
+    gap: clamp(14px, 1.8vw, 22px);
+    display: flex;
+    align-items: flex-start;
+  }
+  body.result .ri .no {
+    width: clamp(36px, 4.4svh, 54px);
+    height: clamp(36px, 4.4svh, 54px);
+    font-size: clamp(15px, 1.9svh, 24px);
+    border-radius: clamp(10px, 1.4vw, 18px);
+    flex: none;
+  }
+  body.result .ri .qq {
+    font-size: clamp(15px, 1.9svh, 24px);
+    line-height: 1.38;
+  }
+  body.result .ri .aa {
+    font-size: clamp(14px, 1.8svh, 22px);
+    padding: clamp(8px, 1.1svh, 15px) clamp(12px, 1.6vw, 20px);
+    border-radius: clamp(10px, 1.3vw, 16px);
+    margin-top: clamp(6px, 0.8svh, 12px);
+  }
+  body.result .ri small {
+    font-size: clamp(12px, 1.4svh, 17px);
+    display: inline-block;
+    margin-top: clamp(4px, 0.6svh, 10px);
+  }
+  body.result .btn {
+    order: 8;
+    min-height: clamp(76px, 7.8svh, 114px);
+    font-size: clamp(19px, 2.3svh, 29px);
+    border-radius: clamp(16px, 2vw, 26px);
+    width: 100%;
+  }
+
+  /* Feedback Overlay */
+  .fb-box {
+    padding: clamp(30px, 4.2svh, 64px) clamp(24px, 4vw, 56px);
+    border-radius: clamp(26px, 3.6vw, 44px);
+    width: min(92vw, 680px);
+  }
+  .fb-icon {
+    width: clamp(120px, 15svh, 210px);
+    height: clamp(120px, 15svh, 210px);
+    margin-bottom: clamp(12px, 1.6svh, 24px);
+  }
+  .fb h2 {
+    font-size: clamp(40px, 5.2svh, 76px);
+  }
+  .fb p {
+    font-size: clamp(17px, 2.1svh, 27px);
+    margin: clamp(10px, 1.4svh, 22px) 0 clamp(20px, 2.6svh, 38px);
+  }
+  .fb .btn {
+    min-height: clamp(68px, 7.2svh, 104px);
+    font-size: clamp(18px, 2.2svh, 28px);
+    padding: clamp(16px, 2svh, 28px) clamp(34px, 4.5vw, 58px);
+  }
+
+  /* Brand Showcase Marquee */
+  .showcase {
+    width: 100%;
+    flex: 0 0 auto;
+    margin-top: 0;
+  }
+  .showcase h3 {
+    font-size: clamp(11px, 1.3svh, 17px);
+    letter-spacing: clamp(0.18em, 0.3vw, 0.32em);
+    gap: clamp(8px, 1.5vw, 16px);
+    margin-bottom: clamp(4px, 0.6svh, 10px);
+  }
+  .showcase h3::before, .showcase h3::after {
+    width: clamp(24px, 5.5vw, 70px);
+  }
+  .marquee {
+    padding: clamp(10px, 1.4svh, 24px) 0 clamp(12px, 1.6svh, 28px);
+  }
+  .track {
+    gap: clamp(18px, 2.8vw, 36px);
+  }
+  .tile {
+    width: clamp(185px, 24vw, 300px);
+    height: clamp(108px, 12svh, 165px);
+    border-radius: clamp(18px, 2.2vw, 28px);
+  }
+  .tile .in {
+    border-radius: clamp(15px, 2vw, 25px);
+  }
 }
 
-@media (orientation:portrait) and (max-height:700px){
-  .stage{gap:clamp(20px,4svh,32px);padding-top:calc(var(--safe-top) + 10px);padding-bottom:calc(var(--safe-bottom) + 10px)}
-  .brand-l img{height:clamp(58px,9svh,76px)}
-  .card{padding:30px 20px}
-  .sub{margin:8px 0 16px}
-  .field input{padding-top:22px;padding-bottom:9px}
-  .field label{top:18px}
-  .field svg{top:18px}
-  .marquee{padding:8px 0 12px}
-  body:not(.result) .card{min-height:0}
-  h1{font-size:clamp(32px,7vw,48px)}
-  .sub{margin:12px 0 28px}
-  .field{margin-bottom:22px}
-  .field input{min-height:88px;padding-top:26px;padding-bottom:12px}
-  .field label{top:28px}
-  .field svg{top:30px;width:24px;height:24px}
-  .btn{min-height:88px}
+/* Specific optimization for tall screens / 9:16 portrait displays (e.g. 1080x1920 Kiosks) */
+@media (orientation: portrait) and (min-height: 960px) {
+  .quiz-panel {
+    gap: clamp(16px, 2.2svh, 36px);
+  }
+  .card {
+    padding: clamp(36px, 4.2svh, 68px) clamp(28px, 4.4vw, 60px);
+    border-radius: clamp(28px, 4vw, 50px);
+  }
+  .brand-l img {
+    height: clamp(84px, 9svh, 170px);
+  }
+  .brand-r img {
+    height: clamp(34px, 3.6svh, 58px);
+  }
+  h1 {
+    font-size: clamp(38px, 4.5svh, 72px);
+  }
+  .q {
+    font-size: clamp(26px, 3svh, 44px);
+  }
+  .opt {
+    min-height: clamp(80px, 8.8svh, 134px);
+  }
+  .opt i {
+    width: clamp(50px, 5.8svh, 80px);
+    height: clamp(50px, 5.8svh, 80px);
+    font-size: clamp(20px, 2.4svh, 34px);
+  }
+  .opt span {
+    font-size: clamp(19px, 2.4svh, 32px);
+  }
+  .field input {
+    min-height: clamp(90px, 9.2svh, 132px);
+    font-size: clamp(20px, 2.4svh, 32px);
+  }
+  .btn {
+    min-height: clamp(88px, 9svh, 130px);
+    font-size: clamp(20px, 2.4svh, 32px);
+  }
+  body.playing .card {
+    min-height: clamp(660px, 74svh, 1200px);
+  }
+  body.result .card {
+    min-height: clamp(700px, 78svh, 1300px);
+  }
 }
+
+/* Compact portrait override for small mobile devices */
+@media (orientation: portrait) and (max-height: 720px) {
+  .stage {
+    gap: clamp(10px, 2svh, 18px);
+    padding-top: calc(var(--safe-top) + 8px);
+    padding-bottom: calc(var(--safe-bottom) + 8px);
+  }
+  .brand-l img { height: clamp(52px, 8.5svh, 72px); }
+  .brand-r img { height: clamp(22px, 3.5svh, 32px); }
+  .card { padding: 20px 18px; border-radius: 20px; min-height: 0; }
+  h1 { font-size: clamp(26px, 5svh, 36px); }
+  .sub { margin-bottom: 16px; font-size: 14px; }
+  .field { margin-bottom: 14px; }
+  .field input { min-height: 64px; padding: 22px 14px 6px 50px; font-size: 16px; }
+  .field label { left: 50px; font-size: 14px; }
+  .field svg { left: 16px; width: 20px; height: 20px; }
+  .btn { min-height: 64px; padding: 14px 20px; font-size: 16px; }
+  .avatar { width: 80px; height: 80px; font-size: 38px; }
+  .rules { margin: 14px 0 18px; gap: 8px; }
+  .rules div { padding: 10px 6px; font-size: 11px; }
+  .rules b { font-size: 22px; }
+  .btn.big { min-height: 66px; font-size: 17px; }
+  body.playing .card { min-height: 440px; padding: 20px 18px; }
+  .q { font-size: 18px; margin: 10px 0 16px; }
+  .opts { gap: 10px; }
+  .opt { min-height: 56px; padding: 10px 14px; }
+  .opt i { width: 34px; height: 34px; font-size: 14px; }
+  .opt span { font-size: 15px; }
+  body.result .card { min-height: 480px; padding: 20px 16px; }
+  body.result .trophy { font-size: 52px; }
+  body.result .score { width: 110px; height: 110px; }
+  body.result .score .n { font-size: 34px; }
+  body.result .stars { font-size: 24px; }
+  body.result .review { gap: 8px; }
+  body.result .ri { padding: 10px 12px; gap: 10px; }
+  body.result .btn { min-height: 58px; font-size: 16px; }
+  .tile { width: 160px; height: 96px; }
+}
+
